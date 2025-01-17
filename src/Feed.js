@@ -8,23 +8,32 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import Post from './Post';
 import { db } from './firebase';
+import firebase from 'firebase';
 
 function Feed() {
     const [posts, setPosts] = useState([]);
+    const [input, setInput] = useState('');
 
     useEffect(() => {
-        // db.collection("posts").onSnapshot((snapshot) => 
-        //     setPosts(
-        //         snapshot.docs.map(doc => ({
-        //             id: doc.id,
-        //             data: doc.data(),
-        //         }))
-        //     )
-        // )
-    })
+        db.collection('posts').onSnapshot(snapshot => 
+            setPosts(
+                snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data(),
+                }))
+            )
+        )
+    }, []); // пустой массив зависимостей означает, что эффект выполнится только при монтировании
 
     const sendPost = e => {
         e.preventDefault()
+        db.collection('posts').add({
+            name: 'Pavel Denisov',
+            description: 'this is a test',
+            message: input,
+            photo: '',
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        })
     }
 
     return (
@@ -33,7 +42,7 @@ function Feed() {
                 <div className="feed__input">
                     <CreateIcon></CreateIcon>
                     <form>
-                        <input type='text'></input>
+                        <input value={input} onChange={e => setInput(e.target.value)} type='text'></input>
                         <button onClick={sendPost} type='submit'>Send</button>
                     </form>
                 </div>
@@ -45,15 +54,15 @@ function Feed() {
                 </div>
             </div>
 
-            {posts.map((post) => {
-                <Post></Post>
-            })}
-
-            <Post 
-                name='Pavel Denisov' 
-                description='This is a test'
-                message='WOW this worked'    
-            ></Post>
+            {posts.map(({ id, data: { name, description, message, photo }}) => (
+                <Post
+                    key={id}
+                    name={name}
+                    description={description}
+                    message={message}
+                    photo={photo}
+                ></Post>
+            ))}
         </div>
     )
 }
