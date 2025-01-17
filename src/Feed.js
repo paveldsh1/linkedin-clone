@@ -15,7 +15,9 @@ function Feed() {
     const [input, setInput] = useState('');
 
     useEffect(() => {
-        db.collection('posts').onSnapshot(snapshot => 
+        db.collection('posts')
+        .orderBy('timestamp', 'desc')
+        .onSnapshot(snapshot => 
             setPosts(
                 snapshot.docs.map(doc => ({
                     id: doc.id,
@@ -27,6 +29,7 @@ function Feed() {
 
     const sendPost = e => {
         e.preventDefault()
+        
         db.collection('posts').add({
             name: 'Pavel Denisov',
             description: 'this is a test',
@@ -34,6 +37,8 @@ function Feed() {
             photo: '',
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
+
+        setInput('');
     }
 
     return (
