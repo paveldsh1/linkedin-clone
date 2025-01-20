@@ -5,6 +5,8 @@ import avatar from './images/avatar.jpg'
 import grad from './images/grad.webp'
 
 function Sidebar() {
+    
+
     const recentItem = (topic) => (
         <div className='sidebar__recentItem'>
             <span className='sidebar_hash'>#</span>
