@@ -50,39 +50,39 @@ function Login() {
 
     return (
         <div className='login'>
-        <img src={linkedInLogo} alt="LinkedIn" />
+            <img src={linkedInLogo} alt="LinkedIn" />
 
-        <form>
-            <input 
-                value={name} 
-                onChange={e => setName(e.target.value)} 
-                placeholder='Full name (required if registering)' 
-                type='text'
-            ></input>
-            <input 
-                value={profilePic} 
-                onChange={e => setProfilePic(e.target.value)} 
-                placeholder='Profile pic URL (optional)' 
-                type="text"
-            ></input>
-            <input 
-                value={email} 
-                onChange={e => setEmail(e.target.value)} 
-                placeholder='Email' 
-                type="email"
-            ></input>
-            <input 
-                value={password} 
-                onChange={e => setPassword(e.target.value)} 
-                placeholder='Password' 
-                type="password"
-            ></input>
-            <button type='submit' onClick={loginToApp}>Sign in</button>
-        </form>
+            <form>
+                <input 
+                    value={name} 
+                    onChange={e => setName(e.target.value)} 
+                    placeholder='Full name (required if registering)' 
+                    type='text'
+                ></input>
+                <input 
+                    value={profilePic} 
+                    onChange={e => setProfilePic(e.target.value)} 
+                    placeholder='Profile pic URL (optional)' 
+                    type="text"
+                ></input>
+                <input 
+                    value={email} 
+                    onChange={e => setEmail(e.target.value)} 
+                    placeholder='Email' 
+                    type="email"
+                ></input>
+                <input 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    placeholder='Password' 
+                    type="password"
+                ></input>
+                <button type='submit' onClick={loginToApp}>Sign in</button>
+            </form>
 
-        <p>Not a member?{" "}
-            <span className='login__register' onClick={register}>Register Now</span>
-        </p>
+            <p>Not a member?{" "}
+                <span className='login__register' onClick={register}>Register Now</span>
+            </p>
         </div>
     )
 }
